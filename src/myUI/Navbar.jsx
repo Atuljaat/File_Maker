@@ -45,10 +45,10 @@ export default function Navbar() {
 
                 <div className='lg:hidden z-20' onClick={toggleOpen} >
                     {
-                        isOpen && <img src="src\media\svgs\close.svg" className='h-8 z-50' alt="" />
+                        isOpen && <img src="public\close.svg" className='h-8 z-50' alt="" />
                     }
                     {
-                        !isOpen && <img src="src\media\svgs\menu.svg" className='h-8 z-50' alt="" />
+                        !isOpen && <img src="public\menu.svg" className='h-8 z-50' alt="" />
                     }
                     
                 </div>
