@@ -1,34 +1,120 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 
 function Home() {
+    let FAQs = [
+        {
+            question: "What kind of files do I get ?",
+            answer: "You will get a DOCX file which you can edit on your own and submit it"
+        },
+        {
+            question: "Will this match my college format ?",
+            answer: "We use a generic, widely-accepted format used by most BCA, BSc, and engineering colleges."
+        },
+        {
+            question: "What if I don't find my subject ?",
+            answer: "We're constantly adding new questions and subjects. If your topic isn't listed, you can message us via email and we'll try to add it soon."
+        },
+        {
+            question: "Do you offer refunds?",
+            answer: "Refunds are generally not possible ."
+        },
+        {
+            question: "Will other students in my class get the same file ?",
+            answer: "Possibly — since the files are generated from the same input. If you want to avoid this, consider making a few small edits in the DOCX version."
+        }
+    ]
+
+
+
+
     return (
         <>
             <div className='py-24 mx-32 flex flex-col justify-center items-center  '>
                 <div className=' flex justify-around items-center gap-20' >
                     <div className=' mx-5'>
                         <p className='max-w-60 text-balance font-semibold text-4xl my-5'>
-                            Build complex college Files in seconds
+                            Generate boring college files in 2 minutes.
                         </p>
-                        <Button>    
+                        <Button>
                             <Link to="./create">
                                 Create Now {`>`}
                             </Link>
                         </Button>
                     </div>
                     <div className='mx-5'>
-                        <img className='h-80' src=".\src\media\svgs\undraw_resume-folder_hf4p.svg" alt="" />
-                    </div>   
+                        <img className='h-96' src="src\media\svgs\Student stress-rafiki.svg" alt="" />
+                    </div>
                 </div>
-                <div className='flex justify-around items-center gap-20 py-24'>
+                {/* <div className='flex justify-around items-center gap-20 py-24'>
                     <div className='mx-5'>
                         <img className='h-80' src="src\media\svgs\undraw_team-up_qeem.svg" alt="" />
                     </div>
                     <div className='max-w-60 text-balance font-semibold text-4xl mx-5'>
                         Use your time in more precious places
                     </div>
+                </div> */}
+                <div className='py-10' >
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-10 p-6 md:p-12">
+                        <div className="h-96 flex-shrink-0">
+                            <img src="src/media/svgs/Attached files-cuate.svg" alt="How it works illustration" className="w-full h-full object-contain" />
+                        </div>
+
+
+                        <div className="flex flex-col gap-6 max-w-md">
+                            <div>
+                                <h2 className="text-4xl font-bold mb-2">How It Works</h2>
+                                <p className="text-gray-600">Get your college file in 3 easy steps.</p>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <h3 className="font-semibold text-lg">📝 Step 1: Choose Subject or Question</h3>
+                                    <p className="text-gray-500"> upload your own questions in PDF format.</p>
+                                </div>
+
+                                <div>
+                                    <h3 className="font-semibold text-lg">⚙️ Step 2: We Generate the File</h3>
+                                    <p className="text-gray-500">Our system auto-creates a formatted, ready-to-submit file instantly.</p>
+                                </div>
+
+                                <div>
+                                    <h3 className="font-semibold text-lg">⬇️ Step 3: Download and Submit</h3>
+                                    <p className="text-gray-500">Get your file in DOCX format, print it, and you're done!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+                <div className="max-w-5xl w-full mx-auto px-4 py-8">
+                    <h2 className="text-center text-4xl font-semibold text-gray-800 mb-10">FAQs</h2>
+
+                    <div className="space-y-4">
+                        {FAQs.map((FAQ, index) => (
+                            <div key={index} className="w-full">
+                                <Accordion type="single" collapsible className="w-full border border-gray-200 rounded-lg shadow-sm">
+                                    <AccordionItem value={`item-${index}`}>
+                                        <AccordionTrigger className="px-4 text-lg py-3 text-left w-full font-medium text-gray-700 hover:bg-gray-100 transition-all">
+                                            {FAQ.question}
+                                        </AccordionTrigger>
+                                        <AccordionContent className="text-lg break-words px-4 py-3 text-gray-600 bg-gray-50">
+                                            {FAQ.answer}
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
             </div>
 
         </>

@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 
-function PricingCard({planName='nothing',info='no info',pricing=0,benefits=[]}) {
+function PricingCard({planName='nothing',info='no info',pricing=0,benefits=[] , isPopular = false}) {
 
     return (
-        <Card className="w-full max-w-sm rounded-2xl shadow-lg border border-gray-200 bg-white">
+        <>
+        <Card className={`w-full max-w-sm rounded-2xl ${isPopular ? 'border-yellow-400 bg-yellow-100 ':'border-gray-200 bg-white'} shadow-lg border  `}>
             <CardHeader className="text-center">
                 <CardTitle className="text-2xl font-bold text-gray-900">{planName}</CardTitle>
                 <CardDescription className="text-base text-gray-600">
@@ -42,7 +43,7 @@ function PricingCard({planName='nothing',info='no info',pricing=0,benefits=[]}) 
                 ))}
             </ul>
         </Card>
-
+</>
     )
 }
 
