@@ -68,13 +68,16 @@ function Pricing() {
 
 
     return (
-        <div className='pt-5 pb-12 mx-32' >
+        <div className=' mt-20 pb-12 mx-10 lg:mx-32' >
             <div className='text-center text-4xl font-semibold'>
                 <p>Plans and Pricing</p>
             </div>
-            <div className='py-10 flex gap-10'>
+            
+            <div className='py-10 grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-4 lg:grid-cols-3 justify-items-center '>
+                
                 {pricings.map((pricing) => {
                     return (
+                        
                         <PricingCard isPopular={pricing.isPopular} key={pricing.name} planName={pricing.name} pricing={pricing.price} info={pricing.description} benefits={pricing.benefits} />
                     )
                 })}

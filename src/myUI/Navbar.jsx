@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Link, NavLink } from 'react-router-dom'
+
+
 
 export default function Navbar() {
     let navbarItems = [
@@ -25,42 +27,86 @@ export default function Navbar() {
         }
     ]
 
+    let [isOpen, setisOpen] = useState(false)
+
+    let toggleOpen = () => {
+        console.log(isOpen)
+        setisOpen(!isOpen)
+    }
 
     return (
-        <div className='p-5 flex justify-around items-center'>
-
-            <div className='font-bold text-xl'>
-                <Link to={"/"}>
-                    File Maker
+        <>
+            <div className='fixed w-full bg-white bg-opacity-50  py-3 top-0    flex justify-around items-center' >
+                <Link to={'/'} >
+                <div className='text-xl font-semibold ' >
+                    FileWriter
+                </div>
                 </Link>
-            </div>
-            <div className='flex gap-5 justify-center items-center'>
-                {
-                    navbarItems.map((item) => (
-                        <NavLink
-                            to={item.location}
-                            key={item.name}
-                            className={({ isActive }) =>
-                                `${isActive ? 'text-black ' : 'text-gray-700'} font-semibold  transition-all duration-100 hover:text-black hover:cursor-pointer`
-                            }>
-                            {item.name}
-                        </NavLink>
-                    ))
-                }
-            </div>
-            <div className='flex gap-2 justify-end items-center'>
-                {
-                    loginItems.map((item) => (
-                        <Button key={item.name}>
-                            <Link to={item.location}>
-                                {item.name}
-                            </Link>
-                        </Button>
-                    ))
-                }
-            </div>
 
-        </div>
+                <div className='lg:hidden z-20' onClick={toggleOpen} >
+                    {
+                        isOpen && <img src="src\media\svgs\close.svg" className='h-8 z-50' alt="" />
+                    }
+                    {
+                        !isOpen && <img src="src\media\svgs\menu.svg" className='h-8 z-50' alt="" />
+                    }
+                    
+                </div>
 
+                <div className='lg:flex gap-5 hidden' >
+                    {
+                        navbarItems.map((item) => {
+                            return (
+                                <NavLink to={item.location} key={item.name} className={({isActive})=>` ${isActive ? 'text-black  ' : 'text-gray-700 '} text-lg font-medium hover:text-black  `} >
+                                    {item.name}
+                                </NavLink>
+                            )
+                        })
+                    }
+                </div>
+                <div className='lg:flex gap-3 hidden' >
+                    {
+                        loginItems.map((item) => {
+                            return (
+                                <Link to={item.location} key={item.name}  >
+                                    <Button className={'cursor-pointer'} >
+                                        {item.name}
+                                    </Button>
+                                </Link>
+                            )
+                        })
+                    }
+                </div>
+            </div>
+            {
+                isOpen && (
+                    <div className="fixed inset-0 z-10 bg-white flex flex-col justify-center items-center p-6 opacity-100">
+                        <div className="flex flex-col gap-6 text-center">
+                            {navbarItems.map((item) => (
+                                <NavLink
+                                    to={item.location}
+                                    key={item.name}
+                                    onClick={toggleOpen}
+                                    className=" text-2xl font-semibold "
+                                >
+                                    {item.name}
+                                </NavLink>
+                            ))}
+                        </div>
+
+                        <div className="mt-12 flex gap-6">
+                            {loginItems.map((item) => (
+                                <Link to={item.location} key={item.name}>
+                                    <Button onClick={toggleOpen} className="px-5 py-2  rounded-lg shadow-md ">
+                                        {item.name}
+                                    </Button>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+        </>
     )
 }

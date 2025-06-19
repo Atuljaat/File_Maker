@@ -36,20 +36,22 @@ function File() {
     });
 
     return (
-        <div className='py-12 mx-32'>
+        <div className='lg:py-20 py-28 mx-12 md:mx-32'>
             <Toaster />
             <div className='font-medium'>
-                <p className='text-2xl font-medium py-2'>
+                <p className='text-3xl md:text-4xl lg:text-2xl font-medium py-2'>
                     Steps to generate Files?
                 </p>
-                <p>Step 1: Copy all the questions into a file and create a PDF file</p>
-                <p>Step 2: Just drop the file, it's that simple</p>
+                <div className='text-xl text-gray-600 lg:text-lg' >
+                <p >Step 1: Copy all the questions into a file and create a PDF file</p>
+                <p >Step 2: Just drop the file, it's that simple</p>
+                </div>
             </div>
 
             {!fileUrl && (
                 <div
                     {...getRootProps()}
-                    className={`border-2 text-wrap border-dashed rounded-lg h-44 my-10 flex justify-center items-center transition-all duration-300 
+                    className={`border-2 text-wrap border-dashed rounded-lg h-60 md:h-60 lg:h-44 my-10 flex justify-center items-center transition-all duration-300 
                         ${isDragActive ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-400 bg-white text-gray-600'}`}
                 >
                     <input {...getInputProps()} />
@@ -86,7 +88,7 @@ function File() {
                 </>
             )}
 
-            <Button disabled={!fileUrl} className={"hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Generate File</Button>
+            <Button disabled={!fileUrl} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Generate File</Button>
         </div>
     );
 }
