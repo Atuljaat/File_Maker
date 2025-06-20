@@ -50,7 +50,7 @@ function Home() {
                         </Button>
                     </div>
                     <div className='mx-5 order-1 lg:order-2 hidden lg:flex  '>
-                        <img className='h-96' src="public\Student stress-rafiki.svg" alt="" />
+                        <img className='h-96' src="\Student stress-rafiki.svg" alt="" />
                     </div>
                 </div>
                 {/* <div className='flex justify-around items-center gap-20 py-24'>
@@ -64,7 +64,7 @@ function Home() {
                 <div className='py-16 lg:py-12' >
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-10 p-6 md:p-12">
                         <div className="h-96 flex-shrink-0  lg:order-1 ">
-                            <img src="public/Attached files-cuate.svg" alt="How it works illustration" className="w-full h-full object-contain" />
+                            <img src="/Attached files-cuate.svg" alt="How it works illustration" className="w-full h-full object-contain" />
                         </div>
 
                         <div className="flex flex-col  gap-6 max-w-md">
