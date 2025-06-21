@@ -2,6 +2,9 @@ import pdfplumber
 import io
 from typing import List
 import re
+from PIL import Image, ImageDraw, ImageFont
+import platform
+import os
 
 def extract_text_from_pdf(pdf_path):
     with pdfplumber.open(io.BytesIO(pdf_path)) as pdf:
@@ -9,7 +12,6 @@ def extract_text_from_pdf(pdf_path):
         for page in pdf.pages:
             text += page.extract_text() + '\n'
     return text
-
 
 import re
 
@@ -67,3 +69,45 @@ def clean_Response(api_response, language):
             
             return [code, output]
 
+def terminal_image(output_text, font_size=18, padding=20,
+                            text_color="#FFFFFF", bg_color="#0C0C0C"):
+    
+    if platform.system() == "Windows":
+        font_candidates = [
+            "C:/Windows/Fonts/consola.ttf",        # Consolas
+            "C:/Windows/Fonts/CascadiaMono.ttf"     # Cascadia Mono (modern terminal)
+        ]
+    else:
+        font_candidates = [
+            "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",  # Linux
+            "/Library/Fonts/Menlo.ttc"                              # macOS
+        ]
+
+    font = None
+    for path in font_candidates:
+        if os.path.exists(path):
+            font = ImageFont.truetype(path, font_size)
+            break
+
+    if font is None:
+        font = ImageFont.load_default()
+        print("⚠️ Using default font, terminal style may not be perfect.")
+
+    lines = output_text.split('\n')
+    max_width = max([font.getlength(line) for line in lines])
+    line_height = font_size + 6
+    img_width = int(max_width + 2 * padding)
+    img_height = int(len(lines) * line_height + 2 * padding)
+
+    img = Image.new("RGB", (img_width, img_height), color=bg_color)
+    draw = ImageDraw.Draw(img)
+
+    for i, line in enumerate(lines):
+        draw.text((padding, padding + i * line_height), line, font=font, fill=text_color)
+
+    return img
+
+def clean_Ouput (text) :
+    cleaned = re.sub(r"```(?:text)?\s*", "", text)
+    cleaned = re.sub(r"\s*```", "", cleaned)
+    return cleaned.strip()

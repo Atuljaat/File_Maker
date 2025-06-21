@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { toast } from 'sonner'
 import { Toaster } from '@/components/ui/sonner'
 import { Button } from '@/components/ui/button'
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import {
     Select,
@@ -21,6 +21,8 @@ function File() {
     const [blob, setBlob] = useState(null)
     const [loading, setLoading] = useState(false)
     const [genFileName , setGenFileName] = useState(null)
+    const [codeFontSize, setCodeFontSize] = useState(16)
+    const [questionFontSize, setQuestionFontSize] = useState(18)
 
     const onDrop = useCallback(acceptedFiles => {
         const selectedFile = acceptedFiles[0];
@@ -54,13 +56,15 @@ function File() {
             return;
         }
         
-        setLoading(true)
         const formData = new FormData()
         formData.append("filename", filename)
         formData.append("file", file)
         formData.append("language",language)
+        formData.append("codeFontSize", codeFontSize)
+        formData.append("questionFontSize", questionFontSize)
         setGenFileName(filename)
         try {
+            setLoading(true)
             console.log('generating')
             const res = await fetch('http://localhost:8000/processFile', {
                 method: 'POST',
@@ -77,6 +81,8 @@ function File() {
         }
         catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -95,6 +101,8 @@ function File() {
         console.log('file generation started')
         console.log(data)
         setGenFileName(data.fileName)
+        setCodeFontSize(data.codeFontSize)
+        setQuestionFontSize(data.questionFontSize)
         handlePDF(data.fileName,data.language)
     }
 
@@ -128,7 +136,7 @@ function File() {
                 <form className='text-xl my-8  flex flex-col gap-2.5' onSubmit={handleSubmit(onSubmit)} >
                     <div className='flex gap-2  items-center' >
                         <label htmlFor="FileName">File Name : </label>
-                        <Input {...register('fileName', {
+                        <Input  {...register('fileName', {
                             required: "Filename is Required"
                         })} type={'text'} className={'w-auto lg:min-w-sm text-xl'} />
                     </div>
@@ -147,8 +155,40 @@ function File() {
                         </Select>
                     </div>
                     {errors.language && <p className='text-red-500 text-md my-2' > {errors.language.message} </p>}
-                
+                    <div className='flex gap-2 items-center' >
+                        <label htmlFor="FileName">Question Font size : </label>
+                        <Input defaultValue={'18'} {...register('questionFontSize', {
+                            required: "Question font size is Required"
+                            , valueAsNumber: true,
+                            min: {
+                                value: 10,
+                                message: "Question font size must be at least 10"
+                            },
+                            max: {
+                                value: 99,
+                                message: "Question font size must be at most 99"
+                            }
+                        })} type={'number'} className={'w-auto lg:min-w-sm text-xl'} />
+                    </div>
+                        {errors.questionFontSize && <p className='text-red-500 text-md my-2' > {errors.questionFontSize.message} </p>}
+                    <div className='flex gap-2 items-center' >
+                        <label htmlFor="FileName">Code Font size : </label>
+                        <Input defaultValue={'16'} {...register('codeFontSize', {
+                            valueAsNumber: true,
+                            required: "Code font size is Required",
+                            min: {
+                                value: 10,
+                                message: "Code font size must be at least 10"
+                            },
+                            max: {
+                                value: 99,
+                                message: "Code font size must be at most 99"
+                            }
+                        })} type={'number'}  className={'w-auto lg:min-w-sm text-xl'} />
+                    </div>
+                        {errors.codeFontSize && <p className='text-red-500 text-md my-2' > {errors.codeFontSize.message} </p>}
             {!fileUrl && (
+                <>
                 <div
                     {...getRootProps()}
                     className={`border-2 text-wrap border-dashed rounded-lg h-60 md:h-60 lg:h-44 my-10 flex justify-center items-center transition-all duration-300 
@@ -161,6 +201,7 @@ function File() {
                             : <p className="text-lg p-2">📁 Drag & drop PDF file here, or <span className="underline text-blue-600 cursor-pointer">click to select</span></p>
                     }
                 </div>
+                </>
             )}
 
             {fileUrl && (
