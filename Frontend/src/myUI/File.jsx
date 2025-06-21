@@ -12,6 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import useMyStore from '@/store/myStore'
 
 
 function File() {
@@ -118,17 +119,18 @@ function File() {
         register("language", { required: "language is required" })
     }, [register])
 
+    const {darkmode} = useMyStore()
 
 
     return (
-        <div className='lg:py-20 py-28 mx-12 md:mx-32'>
+        <div className={` ${darkmode ? 'dark' : ''} dark:bg-[hsl(240,10%,4%)] dark:text-white lg:py-20 py-28 px-12 md:px-32`}>
             <Toaster />
 
-            <div className='font-medium'>
+            <div className='font-medium '>
                 <p className='text-3xl md:text-4xl lg:text-3xl font-medium py-2'>
                     Steps to generate Files?
                 </p>
-                <div className='text-xl text-gray-600 lg:text-lg' >
+                <div className='text-xl dark:text-gray-400 text-gray-600 lg:text-lg' >
                     <p >Step 1: Copy all the questions into a file and create a PDF file</p>
                     <p >Step 2: Just drop the file, it's that simple</p>
                 </div>
@@ -148,7 +150,7 @@ function File() {
                                 <SelectValue placeholder="Language" />
                             </SelectTrigger>
                             <SelectContent  >
-                                <SelectItem value="Python" className={'hover:cursor-pointer'}  > Python </SelectItem>
+                                <SelectItem  value="Python" className={'hover:cursor-pointer'}  > Python </SelectItem>
                                 <SelectItem value="Java" className={'hover:cursor-pointer'} > Java </SelectItem>
                                 <SelectItem value="C" className={'hover:cursor-pointer'} > C </SelectItem>
                             </SelectContent>
@@ -191,14 +193,14 @@ function File() {
                 <>
                 <div
                     {...getRootProps()}
-                    className={`border-2 text-wrap border-dashed rounded-lg h-60 md:h-60 lg:h-44 my-10 flex justify-center items-center transition-all duration-300 
+                    className={`border-2 text-wrap dark:bg-neutral-900 border-dashed rounded-lg h-60 md:h-60 lg:h-44 my-10 flex justify-center items-center transition-all duration-300 dark:text-gray-400
                         ${isDragActive ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-400 bg-white text-gray-600'}`}
                 >
                     <input {...getInputProps()} />
                     {
                         isDragActive
-                            ? <p className="text-lg font-semibold p-2">📂 Drop the file here...</p>
-                            : <p className="text-lg p-2">📁 Drag & drop PDF file here, or <span className="underline text-blue-600 cursor-pointer">click to select</span></p>
+                            ? <p className="text-lg  p-2 ">📂 Drop the file here...</p>
+                            : <p className="text-lg p-2">📁 Drag & drop PDF file here, or <span className="underline dark:text-blue-500 text-blue-600 cursor-pointer">click to select</span></p>
                     }
                 </div>
                 </>

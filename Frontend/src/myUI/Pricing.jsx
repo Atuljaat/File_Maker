@@ -6,6 +6,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import useMyStore from '@/store/myStore'
 
 function Pricing() {
     let pricings = [
@@ -66,10 +67,11 @@ function Pricing() {
         },
     ]
 
+    const {darkmode} = useMyStore()
 
     return (
-        <div className=' mt-20 pb-12 mx-10 lg:mx-32' >
-            <div className='text-center text-4xl font-semibold'>
+        <div className={`${darkmode ? 'dark' : ''} bg-background dark:bg-background pt-20 pb-12 px-10 lg:px-32`} >
+            <div className='text-center text-4xl font-semibold dark:text-white text-black py-3 '>
                 <p>Plans and Pricing</p>
             </div>
             
@@ -83,17 +85,17 @@ function Pricing() {
                 })}
             </div>
             <div className="max-w-5xl w-full mx-auto px-4 py-8">
-                <h2 className="text-center text-4xl font-semibold text-gray-800 mb-10">Payment FAQs</h2>
+                <h2 className="text-center text-4xl font-semibold text-gray-800 mb-10 dark:text-white ">Payment FAQs</h2>
 
                 <div className="space-y-4">
                     {PricingFAQs.map((FAQ, index) => (
                         <div key={index} className="w-full">
                             <Accordion type="single" collapsible className="w-full border border-gray-200 rounded-lg shadow-sm">
                                 <AccordionItem value={`item-${index}`}>
-                                    <AccordionTrigger className="px-4 text-lg py-3 text-left w-full font-medium text-gray-700 hover:bg-gray-100 transition-all">
+                                    <AccordionTrigger className="px-4 text-lg py-3 text-left w-full font-medium dark:text-gray-400 text-gray-700 hover:bg-gray-100 dark:hover:text-gray-200 transition-all dark:hover:bg-background">
                                         {FAQ.question}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-lg break-words px-4 py-3 text-gray-600 bg-gray-50">
+                                    <AccordionContent className="text-lg break-words px-4 py-3 text-gray-600 dark:text-gray-400 dark:bg-background bg-gray-50">
                                         {FAQ.answer}
                                     </AccordionContent>
                                 </AccordionItem>

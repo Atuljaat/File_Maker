@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Link, NavLink } from 'react-router-dom'
-
+import useMyStore from '@/store/myStore'
 
 
 export default function Navbar() {
@@ -42,11 +42,13 @@ export default function Navbar() {
         setisOpen(!isOpen)
     }
 
+    const {darkmode , changeMode  } = useMyStore()
+
     return (
         <>
-            <div className='fixed w-full bg-white bg-opacity-50  py-3 top-0    flex justify-around items-center' >
+            <div className={` ${darkmode ? 'dark' : ''} dark:bg-background px-32 fixed w-full bg-background bg-opacity-50  py-3 top-0    flex justify-around items-center`} >
                 <Link to={'/'} >
-                <div className='text-xl font-semibold ' >
+                <div className={` text-black dark:text-white text-xl font-semibold `} >
                     FileWriter
                 </div>
                 </Link>
@@ -61,11 +63,11 @@ export default function Navbar() {
                     
                 </div>
 
-                <div className='lg:flex gap-5 hidden' >
+                <div className='lg:flex gap-5 hidden ' >
                     {
                         navbarItems.map((item) => {
                             return (
-                                <NavLink to={item.location} key={item.name} className={({isActive})=>` ${isActive ? 'text-black  ' : 'text-gray-700 '} text-lg font-medium hover:text-black  `} >
+                                <NavLink to={item.location} key={item.name} className={({isActive})=>` ${isActive ? 'text-black dark:text-white dark:hover:text-gray-500 ' : 'dark:text-gray-400 text-gray-700 dark:hover:text-gray-200'} text-lg font-medium hover:text-black  `} >
                                     {item.name}
                                 </NavLink>
                             )
@@ -73,6 +75,7 @@ export default function Navbar() {
                     }
                 </div>
                 <div className='lg:flex gap-3 hidden' >
+                    <Button onClick={changeMode} > {darkmode ? 'light' : 'dark'} </Button>
                     {
                         loginItems.map((item) => {
                             return (

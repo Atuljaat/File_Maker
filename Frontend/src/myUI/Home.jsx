@@ -8,6 +8,8 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 
+import useMyStore from '@/store/myStore'
+
 function Home() {
     let FAQs = [
         {
@@ -32,15 +34,14 @@ function Home() {
         }
     ]
 
-
-
+    const {darkmode} = useMyStore()
 
     return (
         <>
-            <div className='lg:py-24 mx-12 py-20 lg:mx-32 flex flex-col justify-center items-center mt-14 '>
+            <div className={` ${darkmode ? 'dark' : ''} dark:text-white bg-background lg:py-24 px-12 py-20 lg:px-32 flex flex-col justify-center items-center mt-14 `}>
                 <div className=' flex justify-center lg:justify-around items-center gap-20 flex-col lg:flex-row ' >
                     <div className=' mx-5 order-2 justify-center items-center flex flex-col'> 
-                        <p className='w-full lg:max-w-60 text-center lg:text-balance lg:leading-11 leading-14 font-semibold text-5xl lg:text-4xl my-5'>
+                        <p className='  w-full lg:max-w-60 text-center lg:text-balance lg:leading-11 leading-14 font-semibold text-5xl lg:text-4xl my-5'>
                             Generate boring college files in 2 minutes.
                         </p>
                         <Button>
@@ -70,23 +71,23 @@ function Home() {
                         <div className="flex flex-col  gap-6 max-w-md">
                             <div>
                                 <h2 className="text-4xl font-bold mb-2">How It Works</h2>
-                                <p className="text-gray-600">Get your college file in 3 easy steps.</p>
+                                <p className="dark:text-gray-400  text-gray-600">Get your college file in 3 easy steps.</p>
                             </div>
 
                             <div className="space-y-4">
                                 <div>
                                     <h3 className="font-semibold text-lg">📝 Step 1: Choose Subject or Question</h3>
-                                    <p className="text-gray-500"> upload your own questions in PDF format.</p>
+                                    <p className="dark:text-gray-400 text-gray-500"> upload your own questions in PDF format.</p>
                                 </div>
 
                                 <div>
                                     <h3 className="font-semibold text-lg">⚙️ Step 2: We Generate the File</h3>
-                                    <p className="text-gray-500">Our system auto-creates a formatted, ready-to-submit file instantly.</p>
+                                    <p className="dark:text-gray-400 text-gray-500">Our system auto-creates a formatted, ready-to-submit file instantly.</p>
                                 </div>
 
                                 <div>
                                     <h3 className="font-semibold text-lg">⬇️ Step 3: Download and Submit</h3>
-                                    <p className="text-gray-500">Get your file in DOCX format, print it, and you're done!</p>
+                                    <p className="dark:text-gray-400 text-gray-500">Get your file in DOCX format, print it, and you're done!</p>
                                 </div>
                             </div>
                         </div>
@@ -94,17 +95,17 @@ function Home() {
 
                 </div>
                 <div className="max-w-5xl w-full mx-auto px-4 py-8">
-                    <h2 className="text-center text-4xl font-semibold text-gray-800 mb-10">Frequently Asked Questions</h2>
+                    <h2 className="text-center text-4xl font-semibold dark:text-white text-gray-800 mb-10">Frequently Asked Questions</h2>
 
                     <div className="space-y-4">
                         {FAQs.map((FAQ, index) => (
-                            <div key={index} className="w-full">
-                                <Accordion type="single" collapsible className="w-full border border-gray-200 rounded-lg shadow-sm">
+                            <div key={index}>
+                                <Accordion type="single" collapsible className=" w-full border border-gray-200 dark:border-gray-100 rounded-lg shadow-sm">
                                     <AccordionItem value={`item-${index}`}>
-                                        <AccordionTrigger className="px-4 text-lg py-3 text-left w-full font-medium text-gray-700 hover:bg-gray-100 transition-all">
+                                        <AccordionTrigger className="px-4 dark:hover:text-gray-200 text-lg py-3 text-left w-full font-medium dark:text-gray-400 dark:hover:bg-background text-gray-700 hover:bg-gray-100 transition-all ">
                                             {FAQ.question}
                                         </AccordionTrigger>
-                                        <AccordionContent className="text-lg break-words px-4 py-3 text-gray-600 bg-gray-50">
+                                        <AccordionContent className=" dark:text-gray-400 dark:bg-neutral-950 text-lg break-words px-4 py-3 text-gray-600 bg-gray-50">
                                             {FAQ.answer}
                                         </AccordionContent>
                                     </AccordionItem>
