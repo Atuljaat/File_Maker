@@ -15,16 +15,16 @@ import {
 
 
 function File() {
-    // const [fileName, setFileName] = useState(null);
+    const [userFileName, setUserFileName] = useState(null);
     const [fileUrl, setFileUrl] = useState(null);
     const [file, setFile] = useState(null)
     const [blob, setBlob] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [genFileName , setGenFileName] = useState(null)
 
     const onDrop = useCallback(acceptedFiles => {
         const selectedFile = acceptedFiles[0];
 
-        // ✅ Check directly against selectedFile
         if (!selectedFile || selectedFile.type !== "application/pdf") {
             toast("Enter a valid PDF file", {
                 description: "Only PDF files are supported",
@@ -32,32 +32,34 @@ function File() {
                     background: "red",
                     color: "white"
                 }
-            });
+            }); 
             setFile(null);
-            setFileName(null);
+            userFileName(null);
             setFileUrl(null);
             return;
         }
 
-        // ✅ Now safe to use
+
         setFile(selectedFile);
         setFileUrl(URL.createObjectURL(selectedFile));
         let cleanedFileName = selectedFile.name.replace(/\.pdf$/i, ""); // remove .pdf (case-insensitive)
-        setFileName(cleanedFileName);
+        setUserFileName(cleanedFileName);
         console.log(selectedFile);
     }, []);
 
 
-    const handlePDF = async () => {
+    const handlePDF = async (filename,language) => {
         if (!file) {
             alert("Please upload the pdf first");
             return;
         }
+        
         setLoading(true)
         const formData = new FormData()
-        formData.append("filename", fileName)
+        formData.append("filename", filename)
         formData.append("file", file)
-
+        formData.append("language",language)
+        setGenFileName(filename)
         try {
             console.log('generating')
             const res = await fetch('http://localhost:8000/processFile', {
@@ -80,16 +82,20 @@ function File() {
 
     const downloadFile = async () => {
         if (!blob) return;
+        console.log('download started')
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "GeneratedFile" + ".docx";
+        link.download = String(genFileName) + ".docx";
         link.click();
         window.URL.revokeObjectURL(url);
     }
 
     let onSubmit = (data) => {
+        console.log('file generation started')
         console.log(data)
+        setGenFileName(data.fileName)
+        handlePDF(data.fileName,data.language)
     }
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -141,7 +147,7 @@ function File() {
                         </Select>
                     </div>
                     {errors.language && <p className='text-red-500 text-md my-2' > {errors.language.message} </p>}
-                           
+                
             {!fileUrl && (
                 <div
                     {...getRootProps()}
@@ -160,10 +166,10 @@ function File() {
             {fileUrl && (
                 <>
                     <div className="my-5 flex items-center justify-between bg-gray-100 p-3 rounded-md mb-4">
-                        <span>{fileName}</span>
+                        <span>{userFileName}</span>
                         <Button
                             onClick={() => {
-                                setFileName(null);
+                                setUserFileName(null);
                                 setFileUrl(null);
                             }}
                             className="text-white hover:text-white bg-red-600 hover:cursor-pointer hover:bg-red-600 font-semibold hover:scale-105 transition-all duration-75"
@@ -183,14 +189,14 @@ function File() {
             )}
 
             <div className='flex gap-2'>
-                <Button onClick={handlePDF} disabled={!fileUrl} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Generate File</Button>
-                <Button onClick={downloadFile} disabled={!blob} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Downlaod File</Button>
+                <Button type={'submit'} disabled={!fileUrl} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Generate File</Button>
+                <Button type={'button'} onClick={downloadFile} disabled={!blob} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Downlaod File</Button>
             </div>
             
             <div className='text-4xl mt-10' >
                 {loading ? "LOADING ..." : "LOADING IS COMPLETED OR NOT STARTED YET"}
             </div>
-             </form>
+            </form>
         </div>
     );
 }

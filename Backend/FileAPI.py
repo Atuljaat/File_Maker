@@ -18,9 +18,9 @@ def get_hello () :
     return {"response" : "Hello world"}
 
 @app.post("/processFile")
-async def processFile (filename:str = Form(...) ,file:UploadFile = File(...)) :
+async def processFile (filename:str = Form(...) ,file:UploadFile = File(...),language:str = Form(...)) :
     content = await file.read()
-    modifiedFile = await write_to_docx(filename,content)
+    modifiedFile = await write_to_docx(filename,content,language)
     return StreamingResponse(
         modifiedFile ,
         media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",

@@ -12,7 +12,7 @@ function Pricing() {
         {
             name: 'Let’s Try',
             description: 'Best for a quick preview — get one auto-generated file.',
-            price: 69,
+            price: "0",
             benefits: [
                 'One automatically generated file',
                 'Basic support',
@@ -24,7 +24,7 @@ function Pricing() {
         {
             name: 'Get Serious',
             description: 'Get three files generated from your selected questions.',
-            price: 180,
+            price: "0",
             benefits: [
                 'Three auto-generated files',
                 'Standard support via Email',
@@ -36,7 +36,7 @@ function Pricing() {
         {
             name: 'Do Everything',
             description: 'Need multiple files? This gives you 5 full files with everything included.',
-            price: 300,
+            price: "0",
             benefits: [
                 'Five auto-generated files',
                 'Priority support',
