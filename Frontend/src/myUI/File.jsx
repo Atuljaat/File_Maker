@@ -24,6 +24,7 @@ function File() {
     const [genFileName , setGenFileName] = useState(null)
     const [codeFontSize, setCodeFontSize] = useState(16)
     const [questionFontSize, setQuestionFontSize] = useState(18)
+    const FileAPI = String(import.meta.env.VITE_FILE_API);
 
     const onDrop = useCallback(acceptedFiles => {
         const selectedFile = acceptedFiles[0];
@@ -67,7 +68,7 @@ function File() {
         try {
             setLoading(true)
             console.log('generating')
-            const res = await fetch('http://localhost:8000/processFile', {
+            const res = await fetch(FileAPI, {
                 method: 'POST',
                 body: formData
             });
