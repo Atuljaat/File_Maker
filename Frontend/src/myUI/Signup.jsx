@@ -2,6 +2,9 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { SignUp } from '@clerk/clerk-react'
+import useMyStore from '@/store/myStore'
+import { dark } from '@clerk/themes'
 
 function Signup() {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -21,11 +24,12 @@ function Signup() {
         console.log(data)
     }
 
+    const { darkmode } = useMyStore()
 
 
     return (
-        <div className="min-h-screen flex justify-center items-center bg-gray-50 py-5 px-4 sm:px-6 lg:px-8">
-            <div className="w-full max-w-md space-y-6 p-8 bg-white border border-gray-200 rounded-2xl shadow-md">
+        <div className={`${darkmode ? 'dark' : ''} dark:bg-background  min-h-screen flex justify-center items-center bg-gray-50 py-24 px-4 sm:px-6 lg:px-8`}>
+            {/* <div className="w-full max-w-md space-y-6 p-8 bg-white border border-gray-200 rounded-2xl shadow-md">
                 <div className="text-center">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Sign up</h2>
                     <p className="text-sm text-gray-600 mt-1">Enter email and password below</p>
@@ -103,7 +107,8 @@ function Signup() {
                         <Button className="w-full">Submit</Button>
                     </div>
                 </form>
-            </div>
+            </div> */}
+            <SignUp  appearance={{baseTheme : darkmode ? dark : ''}} />
         </div>
     )
 }

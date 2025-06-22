@@ -145,12 +145,12 @@ function File() {
                     {errors.fileName && <p className='text-red-500 text-md my-2' > {errors.fileName.message } </p>}
                     <div className='flex gap-2  items-center'  >
                         <label htmlFor="language" > Choose Language : </label>
-                        <Select onValueChange={(value) => setValue("language", value)} >
+                        <Select onValueChange={(value) => setValue("language", value)}  >
                             <SelectTrigger className={'w-[180px]'}>
                                 <SelectValue placeholder="Language" />
                             </SelectTrigger>
-                            <SelectContent  >
-                                <SelectItem  value="Python" className={'hover:cursor-pointer'}  > Python </SelectItem>
+                            <SelectContent className={`dark:bg-neutral-900 dark:text-white  ${darkmode ? 'dark' : ''}`} >
+                                <SelectItem  value="Python" className={'hover:cursor-pointer  '}   > Python </SelectItem>
                                 <SelectItem value="Java" className={'hover:cursor-pointer'} > Java </SelectItem>
                                 <SelectItem value="C" className={'hover:cursor-pointer'} > C </SelectItem>
                             </SelectContent>
@@ -208,8 +208,8 @@ function File() {
 
             {fileUrl && (
                 <>
-                    <div className="my-5 flex items-center justify-between bg-gray-100 p-3 rounded-md mb-4">
-                        <span>{userFileName}</span>
+                    <div className="my-5 flex dark:bg-neutral-900 items-center justify-between bg-gray-100 p-3 rounded-md mb-4">
+                        <span className='dark:text-white' >{userFileName}</span>
                         <Button
                             onClick={() => {
                                 setUserFileName(null);

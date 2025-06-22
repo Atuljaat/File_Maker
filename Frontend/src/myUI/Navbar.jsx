@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Link, NavLink } from 'react-router-dom'
 import useMyStore from '@/store/myStore'
-
+import { SignOutButton, useUser, UserButton } from '@clerk/clerk-react'
+import { dark } from '@clerk/themes'
 
 export default function Navbar() {
     let navbarItems = [
@@ -15,13 +16,13 @@ export default function Navbar() {
             location: "/pricing"
         },
         {
-            name : "Create",
-            location : "/create"
+            name: "Create",
+            location: "/create"
         },
-        {
-            name : "About",
-            location : "/about"
-        } , 
+        // {
+        //     name: "About",
+        //     location: "/about"
+        // },
     ]
 
     let loginItems = [
@@ -42,15 +43,17 @@ export default function Navbar() {
         setisOpen(!isOpen)
     }
 
-    const {darkmode , changeMode  } = useMyStore()
+    const { darkmode, changeMode } = useMyStore()
+    const { isSignedIn, user } = useUser()
+
 
     return (
         <>
-            <div className={` ${darkmode ? 'dark' : ''} dark:bg-background px-32 fixed w-full bg-background bg-opacity-50  py-3 top-0    flex justify-around items-center`} >
+            <div className={` ${darkmode ? 'dark' : ''} dark:bg-background z-50 px-32 fixed w-full bg-background bg-opacity-50  py-3 top-0    flex justify-around items-center`} >
                 <Link to={'/'} >
-                <div className={` text-black dark:text-white text-xl font-semibold `} >
-                    FileWriter
-                </div>
+                    <div className={` text-black dark:text-white text-xl font-semibold `} >
+                        FileWriter
+                    </div>
                 </Link>
 
                 <div className='lg:hidden z-20' onClick={toggleOpen} >
@@ -60,23 +63,23 @@ export default function Navbar() {
                     {
                         !isOpen && <img src="\menu.svg" className='h-8 z-50' alt="" />
                     }
-                    
+
                 </div>
 
                 <div className='lg:flex gap-5 hidden ' >
                     {
                         navbarItems.map((item) => {
                             return (
-                                <NavLink to={item.location} key={item.name} className={({isActive})=>` ${isActive ? 'text-black dark:text-white dark:hover:text-gray-500 ' : 'dark:text-gray-400 text-gray-700 dark:hover:text-gray-200'} text-lg font-medium hover:text-black  `} >
+                                <NavLink to={item.location} key={item.name} className={({ isActive }) => ` ${isActive ? 'text-black dark:text-white dark:hover:text-gray-500 ' : 'dark:text-gray-400 text-gray-700 dark:hover:text-gray-200'} text-lg font-medium hover:text-black  `} >
                                     {item.name}
                                 </NavLink>
                             )
                         })
                     }
                 </div>
-                <div className='lg:flex gap-3 hidden' >
-                    <Button onClick={changeMode} > {darkmode ? 'light' : 'dark'} </Button>
-                    {
+                <div className='lg:flex gap-3 hidden items-center justify-center' >
+                    <Button onClick={changeMode} className={'cursor-pointer'} > {darkmode ? 'light' : 'dark'} </Button>
+                    {!isSignedIn &&
                         loginItems.map((item) => {
                             return (
                                 <Link to={item.location} key={item.name}  >
@@ -86,6 +89,19 @@ export default function Navbar() {
                                 </Link>
                             )
                         })
+                    }
+                    {
+
+                        isSignedIn &&
+                        <div className='px-2' >
+                            <UserButton appearance={{
+                                baseTheme: darkmode ? dark : ''
+                            }} userProfileProps={{
+                                appearance: {
+                                    baseTheme: darkmode ? dark : undefined,
+                                },
+                            }} />
+                        </div>
                     }
                 </div>
             </div>
