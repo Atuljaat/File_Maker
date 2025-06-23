@@ -92,10 +92,10 @@ function Pricing() {
                         <div key={index} className="w-full">
                             <Accordion type="single" collapsible className="w-full border border-gray-200 rounded-lg shadow-sm">
                                 <AccordionItem value={`item-${index}`}>
-                                    <AccordionTrigger className="px-4 text-lg py-3 text-left w-full font-medium dark:text-gray-400 text-gray-700 hover:bg-gray-100 dark:hover:text-gray-200 transition-all dark:hover:bg-background">
+                                    <AccordionTrigger className="px-4 lg:text-lg text-md  py-3 text-left w-full font-medium dark:text-gray-400 text-gray-700 hover:bg-gray-100 dark:hover:text-gray-200 transition-all dark:hover:bg-background">
                                         {FAQ.question}
                                     </AccordionTrigger>
-                                    <AccordionContent className="text-lg break-words px-4 py-3 text-gray-600 dark:text-gray-400 dark:bg-background bg-gray-50">
+                                    <AccordionContent className=" lg:text-lg text-md break-words px-4 py-3 text-gray-600 dark:text-gray-400 dark:bg-background bg-gray-50">
                                         {FAQ.answer}
                                     </AccordionContent>
                                 </AccordionItem>

@@ -136,8 +136,8 @@ function File() {
                     <p >Step 2: Just drop the file, it's that simple</p>
                 </div>
             </div>
-                <form className='text-xl my-8  flex flex-col gap-2.5' onSubmit={handleSubmit(onSubmit)} >
-                    <div className='flex gap-2  items-center' >
+                <form className='text-lg my-8  flex flex-col gap-2.5' onSubmit={handleSubmit(onSubmit)} >
+                    <div className='flex lg:gap-2 gap-1 items-center' >
                         <label htmlFor="FileName">File Name : </label>
                         <Input  {...register('fileName', {
                             required: "Filename is Required"
