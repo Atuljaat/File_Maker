@@ -13,7 +13,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import useMyStore from '@/store/myStore'
-
+import { useUser } from '@clerk/clerk-react'
+import LoadingModal from './LoadingModel'
 
 function File() {
     const [userFileName, setUserFileName] = useState(null);
@@ -24,6 +25,7 @@ function File() {
     const [genFileName , setGenFileName] = useState(null)
     const [codeFontSize, setCodeFontSize] = useState(16)
     const [questionFontSize, setQuestionFontSize] = useState(18)
+    const [email, setEmail] = useState(null)
     const FileAPI = String(import.meta.env.VITE_FILE_API);
 
     const onDrop = useCallback(acceptedFiles => {
@@ -51,6 +53,7 @@ function File() {
         console.log(selectedFile);
     }, []);
 
+    const { user } = useUser()
 
     const handlePDF = async (filename,language) => {
         if (!file) {
@@ -64,6 +67,7 @@ function File() {
         formData.append("language",language)
         formData.append("codeFontSize", codeFontSize)
         formData.append("questionFontSize", questionFontSize)
+        formData.append("email", email)
         setGenFileName(filename)
         try {
             setLoading(true)
@@ -105,6 +109,7 @@ function File() {
         setGenFileName(data.fileName)
         setCodeFontSize(data.codeFontSize)
         setQuestionFontSize(data.questionFontSize)
+        setEmail(user.emailAddresses[0]?.emailAddress || "")
         handlePDF(data.fileName,data.language)
     }
 
@@ -126,7 +131,7 @@ function File() {
     return (
         <div className={` ${darkmode ? 'dark' : ''} dark:bg-[hsl(240,10%,4%)] dark:text-white lg:py-20 py-28 px-12 md:px-32`}>
             <Toaster />
-
+            <LoadingModal visible={loading} />
             <div className='font-medium '>
                 <p className='text-3xl md:text-4xl lg:text-3xl font-medium py-2'>
                     Steps to generate Files?
@@ -233,13 +238,13 @@ function File() {
             )}
 
             <div className='flex gap-2'>
-                <Button type={'submit'} disabled={!fileUrl} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Generate File</Button>
-                <Button type={'button'} onClick={downloadFile} disabled={!blob} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Downlaod File</Button>
+                <Button type={'submit'} disabled={!fileUrl || loading} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Generate File</Button>
+                <Button type={'button'} onClick={downloadFile} disabled={!blob} className={" hover:scale-105 transition-all duration-75 hover:cursor-pointer"} >Download File</Button>
             </div>
             
-            <div className='text-4xl mt-10' >
+            {/* <div className='text-4xl mt-10' >
                 {loading ? "LOADING ..." : "LOADING IS COMPLETED OR NOT STARTED YET"}
-            </div>
+            </div> */}
             </form>
         </div>
     );

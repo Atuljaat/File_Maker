@@ -68,6 +68,76 @@ def clean_Response(api_response, language):
             print(f"DEBUG: Final output length: {len(output)}")
             
             return [code, output]
+        
+        case 'java':
+            if not api_response or not api_response.strip():
+                print("DEBUG: Empty or whitespace-only response")
+                return ["", ""]
+            lines = api_response.strip().split('\n')
+            print(f"DEBUG: Split into {len(lines)} lines")
+            code_lines = []
+            output_lines = []
+            inside_code_block = False
+            found_code_block = False
+            for i, line in enumerate(lines):
+                print(f"DEBUG: Line {i}: {repr(line)}")
+                # Check for code block start (more flexible)
+                if line.strip().startswith('```') and (language.lower() in line.lower() or 'java' in line.lower()):
+                    inside_code_block = True
+                    found_code_block = True
+                    print(f"DEBUG: Found code block start at line {i}")
+                    continue
+                elif line.strip() == '```' and inside_code_block:
+                    inside_code_block = False
+                    print(f"DEBUG: Found code block end at line {i}")
+                    continue
+                elif inside_code_block:
+                    code_lines.append(line)
+                    print(f"DEBUG: Added code line: {repr(line)}")
+                elif line.strip() and not inside_code_block and found_code_block:
+                    # This is output (non-empty lines outside code blocks, after we've seen code)
+                    output_lines.append(line.strip())
+                    print(f"DEBUG: Added output line: {repr(line.strip())}")
+            code = '\n'.join(code_lines)
+            output = '\n'.join(output_lines)
+            print(f"DEBUG: Final code length: {len(code)}")
+            print(f"DEBUG: Final output length: {len(output)}")
+            return [code, output]
+            
+        case 'c':
+            if not api_response or not api_response.strip():
+                print("DEBUG: Empty or whitespace-only response")
+                return ["", ""]
+            lines = api_response.strip().split('\n')
+            print(f"DEBUG: Split into {len(lines)} lines")
+            code_lines = []
+            output_lines = []
+            inside_code_block = False
+            found_code_block = False
+            for i, line in enumerate(lines):
+                print(f"DEBUG: Line {i}: {repr(line)}")
+                # Check for code block start (more flexible)
+                if line.strip().startswith('```') and (language.lower() in line.lower() or 'c' in line.lower()):
+                    inside_code_block = True
+                    found_code_block = True
+                    print(f"DEBUG: Found code block start at line {i}")
+                    continue
+                elif line.strip() == '```' and inside_code_block:
+                    inside_code_block = False
+                    print(f"DEBUG: Found code block end at line {i}")
+                    continue
+                elif inside_code_block:
+                    code_lines.append(line)
+                    print(f"DEBUG: Added code line: {repr(line)}")
+                elif line.strip() and not inside_code_block and found_code_block:
+                    # This is output (non-empty lines outside code blocks, after we've seen code)
+                    output_lines.append(line.strip())
+                    print(f"DEBUG: Added output line: {repr(line.strip())}")
+            code = '\n'.join(code_lines)
+            output = '\n'.join(output_lines)
+            print(f"DEBUG: Final code length: {len(code)}")
+            print(f"DEBUG: Final output length: {len(output)}")
+            return [code, output]
 
 def terminal_image(output_text, font_size=18, padding=20,
                             text_color="#FFFFFF", bg_color="#0C0C0C"):
@@ -107,7 +177,12 @@ def terminal_image(output_text, font_size=18, padding=20,
 
     return img
 
-def clean_Ouput (text) :
-    cleaned = re.sub(r"```(?:text)?\s*", "", text)
+def clean_Ouput(text):
+    cleaned = re.sub(r"```(?:text|bash|shell|terminal|text)?\s*", "", text)
     cleaned = re.sub(r"\s*```", "", cleaned)
+    cleaned = re.sub(r"^[\$#>]\s+.*$", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+:[~\$\w/]*[\$#>]\s+.*$", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"^[A-Z]:\\.*>\s+.*$", "", cleaned, flags=re.MULTILINE)
+    cleaned = re.sub(r"\x1b\[[0-9;]*[mGKHF]", "", cleaned)
+    cleaned = re.sub(r"\n\s*\n", "\n", cleaned)
     return cleaned.strip()

@@ -56,6 +56,7 @@ async def write_to_docx( file_bytes: bytes ,codeFontSize,questionFontSize,langua
         Output_heading = doc.add_heading('Output:', level=3)
         for run in Output_heading.runs:
             run.font.color.rgb = RGBColor(0, 0, 0)
+            run.font.size = Pt(questionFontSize)
         doc.add_picture(output_image)
         
         endtime = time.time()
