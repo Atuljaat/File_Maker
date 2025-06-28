@@ -22,12 +22,12 @@ export default function Navbar() {
         },
         {
             name: "Create",
-            location: "/create"
+            location: "/create" 
         },
-        // {
-        //     name: "About",
-        //     location: "/about"
-        // },
+        {
+            name: "Guide",
+            location: "/guide"
+        },
     ]
 
     let loginItems = [

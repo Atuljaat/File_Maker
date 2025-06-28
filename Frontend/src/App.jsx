@@ -11,6 +11,7 @@ import Pricing from './myUI/Pricing'
 import { SignIn, SignedOut } from '@clerk/clerk-react'
 import { Navigate } from 'react-router-dom'
 import AuthMiddleware from './myUI/AuthMiddleware'
+import Guide from './myUI/Guide'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/pricing' element={<Pricing />} />
+        <Route path='/guide' element={<Guide/>} />
         <Route path='/create' element={
           <>
           <AuthMiddleware>

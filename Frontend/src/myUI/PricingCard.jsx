@@ -22,7 +22,7 @@ function PricingCard({planName='nothing',info='no info',pricing=0,benefits=[] , 
             </CardHeader>
 
             <CardContent className="text-center space-y-2">
-                <p className="text-3xl font-bold text-gray-900 dark:text-white "> ₹ {pricing} </p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white "> {pricing} </p>
             </CardContent>
 
             <div className="flex justify-center items-center">

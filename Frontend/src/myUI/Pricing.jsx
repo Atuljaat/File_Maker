@@ -11,9 +11,9 @@ import useMyStore from '@/store/myStore'
 function Pricing() {
     let pricings = [
         {
-            name: 'Let’s Try',
+            name: "Let's Try",
             description: 'Best for a quick preview — get one auto-generated file.',
-            price: "0",
+            price: "FREE",
             benefits: [
                 'One automatically generated file',
                 'Basic support',
@@ -25,7 +25,7 @@ function Pricing() {
         {
             name: 'Get Serious',
             description: 'Get three files generated from your selected questions.',
-            price: "0",
+            price: "FREE",
             benefits: [
                 'Three auto-generated files',
                 'Standard support via Email',
@@ -37,7 +37,7 @@ function Pricing() {
         {
             name: 'Do Everything',
             description: 'Need multiple files? This gives you 5 full files with everything included.',
-            price: "0",
+            price: "FREE",
             benefits: [
                 'Five auto-generated files',
                 'Priority support',
@@ -51,20 +51,20 @@ function Pricing() {
     let PricingFAQs = [
         {
             question: "Is this a one-time payment or a subscription ?",
-            answer: "This is a one-time payment. You only pay once for the selected plan."
+            answer: "Its a completely free service. You can use it as many times as you want without any charges."
         },
         {
             question: "What payment methods do you accept ?",
-            answer: "We accept UPI, Paytm, Google Pay, PhonePe, and most other payment methods ."
+            answer: "We accept your feedback and suggestions as payment."
         },
         {
             question: "Can I download the file again later ?",
             answer: "You will be able to download the file once. If you face any issues, you can contact us for help."
         },
         {
-            question: "What if the payment is successful but I don’t get the file?",
-            answer: "Don't worry — just reach out to us with your payment ID, and we’ll make sure you get your file."
-        },
+            question : "If its free then why you have pricing page ?",
+            answer : " I just wanted to create a pricing page to make it look good. "
+        }
     ]
 
     const {darkmode} = useMyStore()

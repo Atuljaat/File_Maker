@@ -18,15 +18,15 @@ function Home() {
         },
         {
             question: "Will this match my college format ?",
-            answer: "We use a generic, widely-accepted format used by most BCA, BSc, and engineering colleges."
+            answer: "We use a generic, widely-accepted format that works most of the time. "
         },
         {
             question: "What if I don't find my subject ?",
-            answer: "We're constantly adding new questions and subjects. If your topic isn't listed, you can message us via email and we'll try to add it soon."
+            answer: "You can mail me and I will try to add it as soon as possible. "
         },
         {
             question: "Do you offer refunds?",
-            answer: "Refunds are generally not possible ."
+            answer: "Its free to use so no refunds are needed."
         },
         {
             question: "Will other students in my class get the same file ?",
