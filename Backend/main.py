@@ -13,7 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
     "https://file-maker-college.vercel.app",
-    "http://localhost:5173","*"
+    ,"https://www.codefilemaker.xyz/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
