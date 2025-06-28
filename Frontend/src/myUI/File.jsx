@@ -25,8 +25,9 @@ function File() {
     const [genFileName , setGenFileName] = useState(null)
     const [codeFontSize, setCodeFontSize] = useState(16)
     const [questionFontSize, setQuestionFontSize] = useState(18)
-    const [email, setEmail] = useState(null)
     const FileAPI = String(import.meta.env.VITE_FILE_API);
+    const { user } = useUser()
+
 
     const onDrop = useCallback(acceptedFiles => {
         const selectedFile = acceptedFiles[0];
@@ -53,7 +54,6 @@ function File() {
         console.log(selectedFile);
     }, []);
 
-    const { user } = useUser()
 
     const handlePDF = async (filename,language) => {
         if (!file) {
@@ -61,6 +61,8 @@ function File() {
             return;
         }
         
+        const email = user.emailAddresses[0].emailAddress
+
         const formData = new FormData()
         formData.append("filename", filename)
         formData.append("file", file)
@@ -104,12 +106,12 @@ function File() {
     }
 
     let onSubmit = (data) => {
+        console.log('user  : ' , user)
         console.log('file generation started')
         console.log(data)
         setGenFileName(data.fileName)
         setCodeFontSize(data.codeFontSize)
         setQuestionFontSize(data.questionFontSize)
-        setEmail(user.emailAddresses[0]?.emailAddress || "")
         handlePDF(data.fileName,data.language)
     }
 
