@@ -83,7 +83,6 @@ export default function Navbar() {
                 </div>
                 <div className='lg:flex gap-3 hidden items-center justify-center' >
                     {/* <Button onClick={changeMode} className={'cursor-pointer'} > {darkmode ? 'light' : 'dark'} </Button> */}
-                    <div className='lg:flex items-center justify-center' >
 
                     {
                         darkmode ? 
@@ -101,7 +100,6 @@ export default function Navbar() {
                             )
                         })
                     }
-                    </div>
                     {
 
                         isSignedIn &&

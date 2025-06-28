@@ -30,7 +30,7 @@ def send_email(to, filename, message, file=None):
             subtype="vnd.openxmlformats-officedocument.wordprocessingml.document",
             filename=file.name,
         )
-
+        file.seek(0)
     try:
         with smtplib.SMTP("hackclub.app", 587, timeout=30) as smtp:
             smtp.set_debuglevel(1)

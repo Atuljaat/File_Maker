@@ -60,7 +60,7 @@ function Guide() {
         </ul>
         <div className='my-10' >
             <p className='text-lg font-medium my-2' >
-                If you have any doubts or questions, feel free to contact me.
+                If you have any doubts , questions or any feedback feel free to contact me.
             </p>
             <ContactBtn />
         </div>
