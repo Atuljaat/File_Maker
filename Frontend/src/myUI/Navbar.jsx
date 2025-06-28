@@ -57,7 +57,7 @@ export default function Navbar() {
             <div className={` ${darkmode ? 'dark' : ''} dark:bg-background z-50 lg:px-32 px-16 fixed w-full bg-background bg-opacity-50  py-3 top-0  lg:justify-around  flex justify-between items-center`} >
                 <Link to={'/'} >
                     <div className={` text-black dark:text-white text-xl font-semibold `} >
-                        FileWriter
+                        codeFileWriter
                     </div>
                 </Link>
 
