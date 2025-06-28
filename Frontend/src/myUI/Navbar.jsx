@@ -57,7 +57,7 @@ export default function Navbar() {
             <div className={` ${darkmode ? 'dark' : ''} dark:bg-background z-50 lg:px-32 px-16 fixed w-full bg-background bg-opacity-50  py-3 top-0  lg:justify-around  flex justify-between items-center`} >
                 <Link to={'/'} >
                     <div className={` text-black dark:text-white text-xl font-semibold `} >
-                        codeFileWriter
+                        codefilemaker
                     </div>
                 </Link>
 
@@ -83,10 +83,12 @@ export default function Navbar() {
                 </div>
                 <div className='lg:flex gap-3 hidden items-center justify-center' >
                     {/* <Button onClick={changeMode} className={'cursor-pointer'} > {darkmode ? 'light' : 'dark'} </Button> */}
+                    <div className='lg:flex items-center justify-center' >
+
                     {
                         darkmode ? 
-                        <CiLight onClick={changeMode} size={24} color={darkmode ? 'white' : ''} strokeWidth={1} /> :
-                        <CiDark onClick={changeMode} size={24} color={darkmode ? 'white' : ''} strokeWidth={1} />  
+                        <CiLight className='cursor-pointer' onClick={changeMode} size={24} color={darkmode ? 'white' : ''} strokeWidth={1} /> :
+                        <CiDark className='cursor-pointer' onClick={changeMode} size={24} color={darkmode ? 'white' : ''} strokeWidth={1} />  
                     }
                     {!isSignedIn &&
                         loginItems.map((item) => {
@@ -99,6 +101,7 @@ export default function Navbar() {
                             )
                         })
                     }
+                    </div>
                     {
 
                         isSignedIn &&

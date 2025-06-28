@@ -5,7 +5,7 @@ function ContactBtn() {
     const myEmail = import.meta.env.VITE_EMAIL 
     const handleContactClick = () => {
         const email = myEmail;
-        const subject = "From File Maker";
+        const subject = "From codefilemaker";
         const gmailUrl = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}`;
 
         window.open(gmailUrl, "_blank");
